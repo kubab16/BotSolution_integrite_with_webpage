@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Infrastructure</id>
+    <version>1.0.0</version>
+    <authors>Infrastructure</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Microsoft.EntityFrameworkCore" version="5.0.7" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Pomelo.EntityFrameworkCore.MySql" version="5.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.runtimeconfig.json" target="lib\netcoreapp3.1\Infrastructure.runtimeconfig.json" />
+    <file src="C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.dll" target="lib\netcoreapp3.1\Infrastructure.dll" />
+  </files>
+</package>

@@ -1,0 +1,15 @@
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfo.cs
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.deps.json
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.runtimeconfig.json
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.runtimeconfig.dev.json
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.dll
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.pdb
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.dll
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.pdb
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.genruntimeconfig.cache
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\DBConfig.json
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Languages\English.json
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\bin\Debug\netcoreapp3.1\Languages\Polski.json
+C:\Users\Kuba\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.AssemblyReference.cache

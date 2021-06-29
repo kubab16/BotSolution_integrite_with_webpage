@@ -1,0 +1,9 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Kuba\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Kuba\\.nuget\\packages",
+      "G:\\VisualStudio\\Tools\\NuGetPackages"
+    ]
+  }
+}
