@@ -1,8 +1,0 @@
-{
-  "host": "Localhost",
-  "port": 3357,
-  "database": "project",
-  "user": "root",
-  "password": "",
-  "Connect Timeout": 5
-}
