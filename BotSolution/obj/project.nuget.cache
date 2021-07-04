@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "KuMP/XIEVDX9UMuSqj/JHvmR/L0fAy5PrzwG9hgdW2P1v10Pf48boKnDJXYdZ7IN78BcD8TsFaUvOSMu1/u7/w==",
+  "dgSpecHash": "UQL0IONUtOd+X8z+13lki7gsa5nqqGPUWBkYJQulaqH0HJx5NbjwgTbo/zsP3fEyriIPbWRaWKBtOYg6YNj6QQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Kuba\\.nuget\\packages\\awssdk.core\\3.7.0.34\\awssdk.core.3.7.0.34.nupkg.sha512",
+    "C:\\Users\\Kuba\\.nuget\\packages\\awssdk.core\\3.7.0.37\\awssdk.core.3.7.0.37.nupkg.sha512",
     "C:\\Users\\Kuba\\.nuget\\packages\\discord.addons.hosting\\4.0.2\\discord.addons.hosting.4.0.2.nupkg.sha512",
     "C:\\Users\\Kuba\\.nuget\\packages\\discord.addons.interactive\\2.0.0\\discord.addons.interactive.2.0.0.nupkg.sha512",
     "C:\\Users\\Kuba\\.nuget\\packages\\discord.net\\2.4.0\\discord.net.2.4.0.nupkg.sha512",

@@ -5,9 +5,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,15 +16,13 @@ namespace BotSolution.Bot.Service
     {
         private readonly IServiceProvider provider;
         private readonly DiscordSocketClient client;
-        private readonly IConfiguration configuration;
         private readonly CommandService service;
 
-        public EventsHandler(IServiceProvider provider, DiscordSocketClient client, CommandService service, IConfiguration configuration)
+        public EventsHandler(IServiceProvider provider, DiscordSocketClient client, CommandService service)
         {
             this.provider = provider;
             this.client = client;
             this.service = service;
-            this.configuration = configuration;
         }
 
         public override async Task InitializeAsync(CancellationToken cancellationToken)
@@ -47,7 +43,7 @@ namespace BotSolution.Bot.Service
 
         private async Task OnUserJoined(SocketGuildUser user)
         {
-            GuidMessages.SendMessage(user,TypeOfMessage.Join);
+            GuidMessages.SendMessage(user, TypeOfMessage.Join);
         }
 
         private async Task OnUserLeft(SocketGuildUser user)
@@ -90,7 +86,7 @@ namespace BotSolution.Bot.Service
             ;
         }
 
-        private async Task OnChannelUpdated(SocketChannel PreviuceChannel,SocketChannel NowChannel)
+        private async Task OnChannelUpdated(SocketChannel PreviuceChannel, SocketChannel NowChannel)
         {
             ;
         }

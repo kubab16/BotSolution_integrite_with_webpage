@@ -17,8 +17,8 @@ namespace Infrastructure
     }
     public class Punishments
     {
-        private readonly MyBotContext _context;
-        public Punishments(MyBotContext context)
+        private readonly Context _context;
+        public Punishments(Context context)
         {
             _context = context;
         }

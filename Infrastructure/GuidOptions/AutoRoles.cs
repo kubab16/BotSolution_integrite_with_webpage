@@ -9,17 +9,17 @@ namespace Infrastructure
 {
     public class AutoRoles
     {
-        private readonly MyBotContext _context;
+        private readonly Context _context;
 
-        public AutoRoles(MyBotContext context)
+        public AutoRoles(Context context)
         {
             _context = context;
         }
-
-        public async Task<List<AutoRole>> GetAutoRolesAsync(ulong id)
+        // Dead source to repair 
+        public async Task<List<Server>> GetAutoRolesAsync(ulong id)
         {
-            var autoRoles = await _context.AutoRoles
-                .Where(x => x.ServerId == id)
+            var autoRoles = await _context.Servers
+                .Where(x => x.Id == id)
                 .ToListAsync();
 
             return await Task.FromResult(autoRoles);
@@ -33,21 +33,24 @@ namespace Infrastructure
             if (server == null)
                 _context.Add(new Server { Id = id });
 
-            _context.Add(new AutoRole { RoleId = roleId, ServerId = id });
+            _context.Add(new Server { AutoRoleId = roleId, Id = id });
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveAutoRoleAsync(ulong id, ulong roleId)
+        public async Task RemoveAutoRoleAsync(ulong id)
         {
-            var autoRole = await _context.AutoRoles
-                .Where(x => x.RoleId == roleId)
-                .FirstOrDefaultAsync();
+            var autoRole = await _context.Servers
+                .FindAsync(id);
+                
+            if(autoRole != null)
+            {
+                autoRole = null;
+            }
 
-            _context.Remove(autoRole);
             await _context.SaveChangesAsync();
         }
 
-        public async Task ClearAutoRolesAsync(List<AutoRole> autoRoles)
+        public async Task ClearAutoRolesAsync(List<Server> autoRoles)
         {
             _context.RemoveRange(autoRoles);
             await _context.SaveChangesAsync();

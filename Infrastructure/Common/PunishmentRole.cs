@@ -14,19 +14,19 @@ namespace Infrastructure
     }
     public class PunishmentRole
     {
-        private readonly MyBotContext _context;
-        public PunishmentRole(MyBotContext context)
+        private readonly Context _context;
+        public PunishmentRole(Context context)
         {
             _context = context;
         }
         public async Task<bool> GuidHasPunishmentRoleAsync(UInt64 GuidId)
         {
-            var GuidPerm = await _context.punishRoles.Where(x => x.Id == GuidId).FirstOrDefaultAsync();
+            var GuidPerm = await _context.Servers.Where(x => x.Id == GuidId).FirstOrDefaultAsync();
             if (GuidPerm != null) return true; else return false;
         }
         public async Task<ulong> GetPanishmentRole(UInt64 GuidId, PRoleType roleType)
         {
-            var pRole = await _context.punishRoles
+            var pRole = await _context.Servers
                 .Where(x => x.Id == GuidId)
                 .FirstOrDefaultAsync();
             if (pRole == null) return 0;
@@ -40,18 +40,18 @@ namespace Infrastructure
                     return 0;
             }
         }
-        public async Task<PunishRole> GetPanishmentRole(UInt64 GuidId)
+        public async Task<Server> GetPanishmentRole(UInt64 GuidId)
         {
-            var pRole = await _context.punishRoles
+            var pRole = await _context.Servers
                 .FindAsync(GuidId);
             return await Task.FromResult(pRole);
             
         }
         public async Task AddPunishRole(UInt64 GuidId, UInt64 TMute, UInt64 VMute)
         {
-            var PunishRole = await _context.punishRoles.FindAsync(GuidId);
+            var PunishRole = await _context.Servers.FindAsync(GuidId);
             if (PunishRole == null)
-                _context.punishRoles.Add(new PunishRole { Id = GuidId, Tmute = TMute, Vmute = VMute });
+                _context.Servers.Add(new Server {Id = GuidId, Vmute = VMute,Tmute = TMute });
             else
             {
                 PunishRole.Vmute= VMute;

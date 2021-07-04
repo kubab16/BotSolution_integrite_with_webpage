@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
-    [DbContext(typeof(MyBotContext))]
+    [DbContext(typeof(Context))]
     [Migration("20210622202440_InitiateVersion")]
     partial class InitiateVersion
     {

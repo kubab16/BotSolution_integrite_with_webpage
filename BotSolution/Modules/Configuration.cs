@@ -7,16 +7,16 @@ using Infrastructure.Bot;
 using Infrastructure.Languages;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BotSolution.Modules
 {
     public class Configuration : ModuleBase<SocketCommandContext>
     {
-        private readonly IServiceProvider _provider;
         private readonly DiscordSocketClient _client;
         private readonly CommandService _service;
-        private readonly IConfiguration _configuration;
+        private readonly ModerationRoles _ModerationRoles;
         private readonly Servers _servers;
         private readonly Webhook _webhook;
         private readonly Comand _comand;
@@ -26,10 +26,8 @@ namespace BotSolution.Modules
                              IConfiguration configuration, Servers servers, Webhook webhook, Comand comand,
                              Languages languages)
         {
-            _provider = provider;
             _client = client;
             _service = service;
-            _configuration = configuration;
             _servers = servers;
             _webhook = webhook;
             _comand = comand;
@@ -39,6 +37,20 @@ namespace BotSolution.Modules
         [RequireUserPermission(Discord.GuildPermission.Administrator)]
         public async Task setprefix(string prefix)
         {
+            bool hasPermision = false;
+            var permision = (Context.User as SocketGuildUser).Roles.ToList();
+            foreach (var perm in permision)
+            {
+                if (perm.Permissions.Administrator
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Configuration
+                    )
+                {
+                    hasPermision = true;
+                    break;
+                }
+            }
+            if (hasPermision)
+                return;
             string oldprefix = await _servers.GetGuildPrefix(Context.Guild.Id);
             await _servers.ModifyGuildPrefix(Context.Guild.Id, prefix);
 
@@ -60,6 +72,20 @@ namespace BotSolution.Modules
         [RequireUserPermission(GuildPermission.ManageWebhooks)]
         public async Task NewWebhook(SocketChannel channel, string name)
         {
+            bool hasPermision = false;
+            var permision = (Context.User as SocketGuildUser).Roles.ToList();
+            foreach (var perm in permision)
+            {
+                if (perm.Permissions.Administrator
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Configuration
+                    )
+                {
+                    hasPermision = true;
+                    break;
+                }
+            }
+            if (hasPermision)
+                return;
             var NewWebhook = await (channel as SocketTextChannel).CreateWebhookAsync(name);
             var guid = Context.Guild;
             var lang = (await _language.GetLanguage(guid.Id)).GetSection("Configuration").GetSection("NewWebhooks");
@@ -81,6 +107,20 @@ namespace BotSolution.Modules
         [RequireUserPermission(GuildPermission.ManageWebhooks)]
         public async Task DeleteWebhook(SocketChannel channel, string name)
         {
+            bool hasPermision = false;
+            var permision = (Context.User as SocketGuildUser).Roles.ToList();
+            foreach (var perm in permision)
+            {
+                if (perm.Permissions.Administrator
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Configuration
+                    )
+                {
+                    hasPermision = true;
+                    break;
+                }
+            }
+            if (hasPermision)
+                return;
             Webhooks webhooks = await _webhook.GetWebhook(Context.Guild.Id, name);
             var Webhook = new DiscordWebhookClient(webhooks.id, webhooks.Token);
 
@@ -103,6 +143,20 @@ namespace BotSolution.Modules
         [Alias("enable", "disable")]
         public async Task comand(string comand, string ED)
         {
+            bool hasPermision = false;
+            var permision = (Context.User as SocketGuildUser).Roles.ToList();
+            foreach (var perm in permision)
+            {
+                if (perm.Permissions.Administrator
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Configuration
+                    )
+                {
+                    hasPermision = true;
+                    break;
+                }
+            }
+            if (hasPermision)
+                return;
             switch (ED)
             {
                 case "enable":

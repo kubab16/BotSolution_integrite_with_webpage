@@ -42,6 +42,7 @@ namespace Infrastructure.Migrations
                 principalTable: "Language",
                 principalColumn: "id",
                 onDelete: ReferentialAction.Restrict);
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

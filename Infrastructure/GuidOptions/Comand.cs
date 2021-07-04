@@ -17,9 +17,9 @@ namespace Infrastructure
 
     public class Comand
     {
-        private readonly MyBotContext _context;
+        private readonly Context _context;
 
-        public Comand(MyBotContext context)
+        public Comand(Context context)
         {
             _context = context;
         }

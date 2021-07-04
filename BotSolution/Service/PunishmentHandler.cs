@@ -5,7 +5,6 @@ using Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,30 +32,30 @@ namespace BotSolution.Service
         {
             var NewTask = new Task(async () => await StartMuteHandler());
             NewTask.Start();
-            await _service.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);                   
+            await _service.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
         }
         private async Task StartMuteHandler()
         {
             while (true)
             {
                 await MuteHandler();
-                await Task.Delay(1 * 60 * 1000);               
+                await Task.Delay(1 * 60 * 1000);
             }
         }
         private async Task MuteHandler()
         {
             List<Punishment> punishment = await _punishment.GetAllActivePunishments();
-            foreach(var panish in punishment)
+            foreach (var panish in punishment)
             {
-                if(panish.EndDate >= DateTime.Now && panish.EndDate != null)
+                if (panish.EndDate >= DateTime.Now && panish.EndDate != null)
                 {
                     var guid = _client.GetGuild(panish.GuidId);
                     var user = guid.GetUser(panish.UserId);
-                    if( await _punishmentRole.GuidHasPunishmentRoleAsync(guid.Id));
+                    if (await _punishmentRole.GuidHasPunishmentRoleAsync(guid.Id)) ;
                     switch (panish.TypeOfPunishment)
                     {
                         case typePunishment.textmute:
-                            
+
                             var role = guid.GetRole(await _punishmentRole.GetPanishmentRole(guid.Id, PRoleType.Tmute));
                             await user.RemoveRoleAsync(role);
                             break;
@@ -70,11 +69,11 @@ namespace BotSolution.Service
 
                     }
                     await _punishment.FinishPunishmenst(panish.id);
-                    
+
                 }
-            }           
+            }
         }
-       
+
     }
-    
+
 }

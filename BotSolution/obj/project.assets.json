@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "AWSSDK.Core/3.7.0.34": {
+      "AWSSDK.Core/3.7.0.37": {
         "type": "package",
         "compile": {
           "lib/netcoreapp3.1/AWSSDK.Core.dll": {}
@@ -716,15 +716,15 @@
     }
   },
   "libraries": {
-    "AWSSDK.Core/3.7.0.34": {
-      "sha512": "5EGFEfIIiIF2iQfxcwSjbuL1gvs2ESVLwECAxgpD2BDzfXdjxsHwNRXQPT+7R7iS78hjBETF/ka1iTMuNqU4ww==",
+    "AWSSDK.Core/3.7.0.37": {
+      "sha512": "urpl1vl9PnwOqc4WXWj+MmuB/fHmzxVPmsjuu5j7FW0h0964aUuFbCJhM++ahu55JI7JlmKHSXxlCjKiJGHeyg==",
       "type": "package",
-      "path": "awssdk.core/3.7.0.34",
+      "path": "awssdk.core/3.7.0.37",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "awssdk.core.3.7.0.34.nupkg.sha512",
+        "awssdk.core.3.7.0.37.nupkg.sha512",
         "awssdk.core.nuspec",
         "lib/net35/AWSSDK.Core.dll",
         "lib/net35/AWSSDK.Core.pdb",
@@ -1915,7 +1915,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "AWSSDK.Core >= 3.7.0.34",
+      "AWSSDK.Core >= 3.7.0.37",
       "Discord.Addons.Hosting >= 4.0.2",
       "Discord.Addons.Interactive >= 2.0.0",
       "Discord.Net >= 2.4.0",
@@ -1973,7 +1973,7 @@
         "dependencies": {
           "AWSSDK.Core": {
             "target": "Package",
-            "version": "[3.7.0.34, )"
+            "version": "[3.7.0.37, )"
           },
           "Discord.Addons.Hosting": {
             "target": "Package",

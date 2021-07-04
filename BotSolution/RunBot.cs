@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace BotSolution.Bot
 {
-    class RunBot
+    public class RunBot
     {
         //
         // Sumary:
@@ -64,7 +64,7 @@ namespace BotSolution.Bot
                         .AddHostedService<CommandHandler>()
                         .AddHostedService<EventsHandler>()
                         .AddHostedService<PunishmentHandler>()
-                        .AddDbContext<MyBotContext>()
+                        .AddDbContext<Context>()
                         .AddSingleton<Servers>()
                         .AddSingleton<AutoRoles>()
                         .AddSingleton<Comand>()

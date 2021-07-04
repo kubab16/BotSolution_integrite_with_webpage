@@ -7,9 +7,9 @@ namespace Infrastructure.Bot
 {
     public class Webhook
     {
-        private readonly MyBotContext _context;
+        private readonly Context _context;
 
-        public Webhook(MyBotContext context)
+        public Webhook(Context context)
         {
             _context = context;
         }

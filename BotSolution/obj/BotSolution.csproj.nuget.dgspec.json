@@ -50,7 +50,7 @@
           "dependencies": {
             "AWSSDK.Core": {
               "target": "Package",
-              "version": "[3.7.0.34, )"
+              "version": "[3.7.0.37, )"
             },
             "Discord.Addons.Hosting": {
               "target": "Package",

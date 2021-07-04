@@ -11,8 +11,8 @@ namespace Infrastructure.Languages
 {
     public class Languages
     {
-        private readonly MyBotContext _context;
-        public Languages (MyBotContext context)
+        private readonly Context _context;
+        public Languages (Context context)
         {
             _context = context;
         }

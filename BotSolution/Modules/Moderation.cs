@@ -21,24 +21,23 @@ namespace BotSolution.Modules
         private readonly ModerationRoles _ModerationRoles;
         private readonly Punishments _punishment;
         private readonly PunishmentRole _punishmentRole;
-        private readonly Servers _server;
         private readonly Languages _language;
 
         public Moderation(DiscordSocketClient client,
                           Comand comand,
                           ModerationRoles moderation,
                           Punishments punishment,
-                          PunishmentRole punishmentRole,
-                          Servers server,
-                          Languages languages)
+                          PunishmentRole punishmentRole,                         
+                          Languages languages,
+                          ModerationRoles moderationRoles)
         {
             _client = client;
             _comand = comand;
             _ModerationRoles = moderation;
             _punishment = punishment;
             _punishmentRole = punishmentRole;
-            _server = server;
             _language = languages;
+            _ModerationRoles = moderationRoles;
         }
 
         [Command("textmute")]
@@ -49,19 +48,18 @@ namespace BotSolution.Modules
             if (!await _comand.GetComendConfig(Context.Guild.Id, TypeComand.moderation)) return;
             bool hasPermision = false;
             var permision = (Context.User as SocketGuildUser).Roles.ToList();       
-            for (int i = 0; i < permision.Count; i++)
+            foreach(var perm in permision)
             {
-                if (permision[i].Permissions.Administrator
-                    || await _ModerationRoles.RoleHasPermision(Context.Guild.Id, permision[i].Id, PermisionLevel.Modelators))
+                if(perm.Permissions.Administrator 
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id,perm.Id)).Tmute
+                    )
                 {
                     hasPermision = true;
                     break;
                 }
             }
-            if (!hasPermision && !(Context.Guild.Owner == Context.User))
-            {
+            if (hasPermision)
                 return;
-            }
             if (await DateCalculator.AddTime(time) != null)
             {
                 DateTime EndTime = (DateTime)await DateCalculator.AddTime(time);
@@ -94,16 +92,18 @@ namespace BotSolution.Modules
             if (!await _comand.GetComendConfig(Context.Guild.Id, TypeComand.moderation)) return;
             bool hasPermision = false;
             var permision = (Context.User as SocketGuildUser).Roles.ToList();
-            for (int i = 0; i < permision.Count; i++)
+            foreach (var perm in permision)
             {
-                if (permision[i].Permissions.Administrator
-                    || await _ModerationRoles.RoleHasPermision(Context.Guild.Id, permision[i].Id, PermisionLevel.Modelators))
+                if (perm.Permissions.Administrator
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Vmute
+                    )
                 {
                     hasPermision = true;
                     break;
                 }
             }
-            if (!hasPermision && !(Context.Guild.Owner == Context.User) ) return;
+            if (hasPermision)
+                return;
             if (await DateCalculator.AddTime(time) != null)
             {
                 DateTime EndTime = (DateTime)await DateCalculator.AddTime(time);
@@ -135,15 +135,18 @@ namespace BotSolution.Modules
             if (!await _comand.GetComendConfig(Context.Guild.Id, TypeComand.moderation)) return;
             bool hasPermision = false;
             var permision = (Context.User as SocketGuildUser).Roles.ToList();
-            for (int i = 0; i < permision.Count; i++)
+            foreach (var perm in permision)
             {
-                if (permision[i].Permissions.Administrator || await _ModerationRoles.RoleHasPermision(Context.Guild.Id, permision[i].Id, PermisionLevel.ModelatorOlders))
+                if (perm.Permissions.Administrator
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Ban
+                    )
                 {
                     hasPermision = true;
                     break;
                 }
             }
-            if (!hasPermision && !(Context.Guild.Owner == Context.User)) return;
+            if (hasPermision)
+                return;
             if (await DateCalculator.AddTime(time) != null)
             {
                 DateTime EndTime = (DateTime)await DateCalculator.AddTime(time);
@@ -167,15 +170,18 @@ namespace BotSolution.Modules
             if (!await _comand.GetComendConfig(Context.Guild.Id, TypeComand.moderation)) return;
             bool hasPermision = false;
             var permision = (Context.User as SocketGuildUser).Roles.ToList();
-            for (int i = 0; i < permision.Count; i++)
+            foreach (var perm in permision)
             {
-                if (permision[i].Permissions.Administrator || await _ModerationRoles.RoleHasPermision(Context.Guild.Id, permision[i].Id, PermisionLevel.Modelators))
+                if (perm.Permissions.Administrator
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Warn
+                    )
                 {
                     hasPermision = true;
                     break;
                 }
             }
-            if (!hasPermision && !(Context.Guild.Owner == Context.User)) return;
+            if (hasPermision)
+                return;
             await _punishment.AddPunishmentUser(Context.Guild.Id, user.Id, typePunishment.warn, Context.User.Id, reason);
 
             await SendMesage(Context, user as SocketGuildUser, "Vmute", reason, Discord.Color.Orange);
@@ -189,17 +195,20 @@ namespace BotSolution.Modules
             if (!await _comand.GetComendConfig(Context.Guild.Id, TypeComand.moderation)) return;
             bool hasPermision = false;
             var permision = (Context.User as SocketGuildUser).Roles.ToList();
-            for (int i = 0; i < permision.Count; i++)
+            foreach(var perm in permision)
             {
-                if (permision[i].Permissions.Administrator || await _ModerationRoles.RoleHasPermision(Context.Guild.Id, permision[i].Id, PermisionLevel.Modelators))
+                if(perm.Permissions.Administrator 
+                    || (await _ModerationRoles.RolePermision(Context.Guild.Id,perm.Id)).Kick
+                    )
                 {
                     hasPermision = true;
                     break;
                 }
-                if (!hasPermision && !(Context.Guild.Owner == Context.User)) return;
-
-                await (user as SocketGuildUser).KickAsync(reason,null);
             }
+            if (hasPermision)
+                return;
+
+            await (user as SocketGuildUser).KickAsync(reason,null);
 
             await SendMesage(Context, user as SocketGuildUser, "kick", reason, Discord.Color.Orange);
             await Context.Message.DeleteAsync();
