@@ -20,9 +20,11 @@ namespace BotSolution.Bot
 {
     public class RunBot
     {
-        //
-        // Sumary:
-        //  Asunc start bot. 
+        private static IHost host;
+        /// <summary>
+        /// Start bot
+        /// </summary>
+        /// <returns></returns>
         [Obsolete]
         public static async Task start()
         {
@@ -76,10 +78,21 @@ namespace BotSolution.Bot
                 })
                 .UseConsoleLifetime();
 
-            var host = builder.Build();
+            host = builder.Build();
             using (host)
             {
                 await host.RunAsync();
+            }
+        }
+        /// <summary>
+        /// Stop bot
+        /// </summary>
+        /// <returns></returns>
+        public static async Task StopBot()
+        {
+            using (host)
+            {
+                await host.StopAsync();
             }
         }
     }

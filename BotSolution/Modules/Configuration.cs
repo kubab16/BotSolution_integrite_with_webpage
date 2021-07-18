@@ -74,17 +74,22 @@ namespace BotSolution.Modules
         {
             bool hasPermision = false;
             var permision = (Context.User as SocketGuildUser).Roles.ToList();
-            foreach (var perm in permision)
+            if (Context.Guild.Owner.Id != Context.User.Id)
             {
-                if (perm.Permissions.Administrator
-                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Configuration
-                    )
+                foreach (var perm in permision)
                 {
-                    hasPermision = true;
-                    break;
+                    if (perm.Permissions.Administrator
+                        || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Configuration
+                        )
+                    {
+                        hasPermision = true;
+                        break;
+                    }
                 }
             }
-            if (hasPermision)
+            else
+                hasPermision = true;
+            if (!hasPermision)
                 return;
             var NewWebhook = await (channel as SocketTextChannel).CreateWebhookAsync(name);
             var guid = Context.Guild;
@@ -109,17 +114,22 @@ namespace BotSolution.Modules
         {
             bool hasPermision = false;
             var permision = (Context.User as SocketGuildUser).Roles.ToList();
-            foreach (var perm in permision)
+            if (Context.Guild.Owner.Id != Context.User.Id)
             {
-                if (perm.Permissions.Administrator
-                    || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Configuration
-                    )
+                foreach (var perm in permision)
                 {
-                    hasPermision = true;
-                    break;
+                    if (perm.Permissions.Administrator
+                        || (await _ModerationRoles.RolePermision(Context.Guild.Id, perm.Id)).Configuration
+                        )
+                    {
+                        hasPermision = true;
+                        break;
+                    }
                 }
             }
-            if (hasPermision)
+            else
+                hasPermision = true;
+            if (!hasPermision)
                 return;
             Webhooks webhooks = await _webhook.GetWebhook(Context.Guild.Id, name);
             var Webhook = new DiscordWebhookClient(webhooks.id, webhooks.Token);

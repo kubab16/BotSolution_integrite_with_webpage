@@ -21,13 +21,13 @@ namespace Infrastructure
         }
         public async Task<bool> GuidHasPunishmentRoleAsync(UInt64 GuidId)
         {
-            var GuidPerm = await _context.Servers.Where(x => x.Id == GuidId).FirstOrDefaultAsync();
+            var GuidPerm = await _context.Servers.Where(x => x.GuildId == GuidId).FirstOrDefaultAsync();
             if (GuidPerm != null) return true; else return false;
         }
         public async Task<ulong> GetPanishmentRole(UInt64 GuidId, PRoleType roleType)
         {
             var pRole = await _context.Servers
-                .Where(x => x.Id == GuidId)
+                .Where(x => x.GuildId == GuidId)
                 .FirstOrDefaultAsync();
             if (pRole == null) return 0;
             switch(roleType)
@@ -51,7 +51,7 @@ namespace Infrastructure
         {
             var PunishRole = await _context.Servers.FindAsync(GuidId);
             if (PunishRole == null)
-                _context.Servers.Add(new Server {Id = GuidId, Vmute = VMute,Tmute = TMute });
+                _context.Servers.Add(new Server { GuildId = GuidId, Vmute = VMute,Tmute = TMute });
             else
             {
                 PunishRole.Vmute= VMute;

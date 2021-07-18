@@ -10,8 +10,9 @@ namespace Infrastructure
     /// <summary>
     /// Bot DataBase conection
     /// </summary>
-    public class Context : DbContext
+    public class Context :  DbContext 
     {
+
         public DbSet<Server> Servers { get; set; }
         public DbSet<Comands> Comands { get; set; }
         public DbSet<Webhooks> Webhooks { get; set; }
@@ -27,8 +28,10 @@ namespace Infrastructure
         public DbSet<User> users { get; set; }
         public DbSet<WathedEpisode> wathedSeries { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+
             var configuration = new ConfigurationBuilder()
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("DBConfig.json", false, true)
@@ -53,7 +56,8 @@ namespace Infrastructure
     /// </summary>
     public class Server
     {
-        public ulong Id { get; set; }
+        [Key]
+        public ulong GuildId { get; set; }
         public string Prefix { get; set; }
         public ulong Logs { get; set; }
         public ulong ChannelId { get; set; }
@@ -124,12 +128,11 @@ namespace Infrastructure
     {
         [Key]
         public ulong GuildID { get; set; }
-        [Key]
         public ulong RoleId { set; get; }
 
         [DefaultValue(false)] // Moderation
         public bool Modration { get; set; }
-        [DefaultValue(false)] 
+        [DefaultValue(false)]
         public bool Vmute { get; set; }
         [DefaultValue(false)]
         public bool Tmute { get; set; }
@@ -157,7 +160,7 @@ namespace Infrastructure
         [DefaultValue(false)]
         public bool Configuration { get; set; }
 
-        public void SetSection (string section, bool value)
+        public void SetSection(string section, bool value)
         {
             switch (section)
             {
@@ -202,7 +205,10 @@ namespace Infrastructure
     }
     public class Series
     {
+        [Key]
+        [DisplayName("Series ID")]
         public ulong id { get; set; }
+        [DisplayName("Series image")]
         public byte[] image { get; set; }
         public string name { get; set; }
         public string description { get; set; }
@@ -210,15 +216,21 @@ namespace Infrastructure
     }
     public class SeriesRating
     {
+        [Key]
         public ulong id { get; set; }
         [DisplayName("Series' ID")]
         public ulong seriesId { get; set; }
         [DisplayName("User's ID")]
         public ulong userId { get; set; }
-        public double raiting { get; set; }
+        public double Raiting { get; set; }
+        public double Graphics { get; set; }
+        public double Story { get; set; }
+        public double Characters { get; set; }
+        public double Music { get; set; }
     }
     public class player
     {
+        [Key]
         public ulong id { get; set; }
         [DisplayName("Episode ID")]
         public ulong EpisodeID { get; set; }
@@ -229,6 +241,8 @@ namespace Infrastructure
     }
     public class Episode
     {
+        [Key]
+        [DisplayName("Episode ID")]
         public ulong id { get; set; }
         public int Number { get; set; }
         public string name { get; set; }
@@ -260,20 +274,36 @@ namespace Infrastructure
         [DisplayName("Unlike")]
         public int negative { get; set; }
     }
-    public class User
+    public class User 
     {
         [DisplayName("User ID")]
-        public ulong id { get; set; }
-        [DisplayName("User name")]
-        [StringLength(60, MinimumLength = 3)]
-        public string name { get; set; }
-        public string Email { get; set; }
+        public ulong id { get; set; }      
         [DisplayName("User's accout discord ID")]
         public ulong DiscordAccountId { get; set; }
         [DisplayName("User's avatara")]
-        public byte[] avatar {get;set;} 
-        [DisplayName("User password (Hashed!).")]     
-        public string pass { get; set; }
+        public byte[] avatar { get; set; }
+        [DisplayName("User's hashed passwoed")]
+        public string HashedPassord { get; set; }       
+        public string mail { get; set; }
+        public string name { get; set; }
+        public DateTime BrightDate { get; set; }
+        public bool adult { get; set; }
+        [DefaultValue(null)]
+        public ulong Group { get; set; }
+        public permisionGlobal permision { get; set; }
+    }
+    public class permisionGlobal
+    {
+        [Key]
+        public ulong PermisionGlobalId { get; set; }
+        public bool Admin { get; set; }
+        public bool Modelator { get; set; }
+        [DisplayName("Edit series")]
+        public bool EditSeries { get; set; }
+        [DisplayName("Edit player")]
+        public bool EditPlayer { get; set; }
+        [DisplayName("Add coments")]
+        public bool Coments { get; set; }
     }
     public class WathedEpisode
     {

@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj": {}
+    "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj": {
+    "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj",
+        "projectUniqueName": "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj",
         "projectName": "BotSolution",
-        "projectPath": "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj",
-        "packagesPath": "C:\\Users\\Kuba\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\obj\\",
+        "projectPath": "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\BotSolution.csproj",
+        "packagesPath": "C:\\Users\\User-Standard\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\BotSolution\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "G:\\VisualStudio\\Tools\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Kuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User-Standard\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -32,8 +34,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -88,22 +90,24 @@
         }
       }
     },
-    "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Kuba\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kuba\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\User-Standard\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User-Standard\\Desktop\\BotSolution_integrite_with_webpage\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "G:\\VisualStudio\\Tools\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Kuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User-Standard\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -128,6 +132,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.15, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.7, )"

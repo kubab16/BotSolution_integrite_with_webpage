@@ -29,7 +29,7 @@ namespace Infrastructure.Languages
                 }
                 else
                 {
-                    _context.Servers.Add(new Server { Id = id, Langue = Lang });
+                    _context.Servers.Add(new Server { GuildId = id, Langue = Lang });
                 }
                 await _context.SaveChangesAsync();
                 return await Task.FromResult(true);
@@ -49,7 +49,7 @@ namespace Infrastructure.Languages
                 }
                 else
                 {
-                    _context.Servers.Add(new Server { Id = id, Langue = Lang });
+                    _context.Servers.Add(new Server { GuildId = id, Langue = Lang });
                 }
                 await _context.SaveChangesAsync();
                 return await Task.FromResult(true);
@@ -63,7 +63,7 @@ namespace Infrastructure.Languages
                 }
                 else
                 {
-                    _context.Servers.Add(new Server { Id = id, Langue = new Language { name = langue, File = FileName } });
+                    _context.Servers.Add(new Server { GuildId = id, Langue = new Language { name = langue, File = FileName } });
                 }
                 await _context.SaveChangesAsync();
                 return await Task.FromResult(true);
@@ -75,7 +75,8 @@ namespace Infrastructure.Languages
                         .SetBasePath(Directory.GetCurrentDirectory())
                         .AddJsonFile("Languages/" + "English.json", false, true)
                         .Build();
-            var lang = await _context.Servers.FindAsync(id);
+            Server lang = await _context.Servers.FindAsync(id);
+            if(lang != null)
             if(lang.Langue != null)
             {
                 var langs = new ConfigurationBuilder()
@@ -85,10 +86,9 @@ namespace Infrastructure.Languages
                 var result = langs ?? defaults;
                 return await Task.FromResult(result);
             }
-            else
-            {
-                return await Task.FromResult(defaults);
-            }
+            
+
+            return await Task.FromResult(defaults);
         }
         public async Task<List<Language>> GetAllLanges()
         {

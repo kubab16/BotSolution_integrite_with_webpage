@@ -28,7 +28,7 @@ namespace Infrastructure
                 .FindAsync(id);
 
             if (server == null)
-                _context.Add(new Server { Id = id, Prefix = prefix });
+                _context.Add(new Server { GuildId = id, Prefix = prefix });
             else
                 server.Prefix = prefix;
 
@@ -42,7 +42,7 @@ namespace Infrastructure
         public async Task<string> GetGuildPrefix(ulong id)
         {
             var prefix = await _context.Servers
-                .Where(x => x.Id == id)
+                .Where(x => x.GuildId == id)
                 .Select(x => x.Prefix)
                 .FirstOrDefaultAsync();
             return await Task.FromResult(prefix);
@@ -60,7 +60,7 @@ namespace Infrastructure
                 .FindAsync(id);
 
             if (server == null)
-                _context.Add(new Server { Id = id, Logs = channelId });
+                _context.Add(new Server { GuildId = id, Logs = channelId });
             else
                 server.Logs = channelId;
 
@@ -103,7 +103,7 @@ namespace Infrastructure
                 .FindAsync(id);
 
             if (server == null)
-                _context.Add(new Server { Id = id, ChannelId = channelId });
+                _context.Add(new Server { GuildId = id, ChannelId = channelId });
             else
                 server.ChannelId = channelId;
 
@@ -149,7 +149,7 @@ namespace Infrastructure
             if (server == null)
             {
 
-                _context.Add(new Server { Id = id, Background = imageBytes });
+                _context.Add(new Server { GuildId = id, Background = imageBytes });
             }               
             else
                 server.Background = imageBytes;
@@ -169,7 +169,7 @@ namespace Infrastructure
             if (server == null)
             {
 
-                _context.Add(new Server { Id = id, Background = imageBytes });
+                _context.Add(new Server { GuildId = id, Background = imageBytes });
             }
             else
                 server.Background = imageBytes;

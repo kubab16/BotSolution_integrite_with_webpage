@@ -19,7 +19,7 @@ namespace Infrastructure
         public async Task<List<Server>> GetAutoRolesAsync(ulong id)
         {
             var autoRoles = await _context.Servers
-                .Where(x => x.Id == id)
+                .Where(x => x.GuildId == id)
                 .ToListAsync();
 
             return await Task.FromResult(autoRoles);
@@ -31,9 +31,9 @@ namespace Infrastructure
                 .FindAsync(id);
 
             if (server == null)
-                _context.Add(new Server { Id = id });
+                _context.Add(new Server { GuildId = id });
 
-            _context.Add(new Server { AutoRoleId = roleId, Id = id });
+            _context.Add(new Server { AutoRoleId = roleId, GuildId = id });
             await _context.SaveChangesAsync();
         }
 
