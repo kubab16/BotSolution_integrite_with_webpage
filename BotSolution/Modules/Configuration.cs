@@ -94,7 +94,7 @@ namespace BotSolution.Modules
             var NewWebhook = await (channel as SocketTextChannel).CreateWebhookAsync(name);
             var guid = Context.Guild;
             var lang = (await _language.GetLanguage(guid.Id)).GetSection("Configuration").GetSection("NewWebhooks");
-            _webhook.AddWebhook(guid.Id, NewWebhook.Token, NewWebhook.Id, NewWebhook.Name);
+            _webhook.AddWebhookAsync(guid.Id, NewWebhook.Token, NewWebhook.Id, NewWebhook.Name);
             var embed = new EmbedBuilder()
                 .WithAuthor(Context.Client.CurrentUser)
                 .WithTitle(lang["Title"])
@@ -132,7 +132,7 @@ namespace BotSolution.Modules
             if (!hasPermision)
                 return;
             Webhooks webhooks = await _webhook.GetWebhook(Context.Guild.Id, name);
-            var Webhook = new DiscordWebhookClient(webhooks.id, webhooks.Token);
+            var Webhook = new DiscordWebhookClient(webhooks.Id, webhooks.Token);
 
             await _webhook.RemoveWebhook(Context.Guild.Id, webhooks.Token);
 

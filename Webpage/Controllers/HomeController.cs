@@ -1,18 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Webpage.Models;
 using Infrastructure;
-using BCrypt.Net;
-
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+using Infrastructure.Webpage;
 
 namespace Webpage.Controllers
 {
@@ -20,17 +12,20 @@ namespace Webpage.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly Context _context;
-
+        private readonly Episodes _episode;
 
         public HomeController(ILogger<HomeController> logger, Context context)
         {
             _logger = logger;
             _context = context;
+            _episode = new Episodes(context);    
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var episodes = await _episode.GetAllEpisodesAsync();
+
+            return View(episodes);
         }
 
         public IActionResult Privacy()

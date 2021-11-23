@@ -26,7 +26,9 @@ namespace Infrastructure
                 .FindAsync(GuidId, RoleId);
             if (Permisions == null)
             {
-                var NewPermisionRole = new ModerationRole { GuildID = GuidId, RoleId = RoleId };
+                var guild = await _context.Servers
+                    .FirstOrDefaultAsync(x => x.GuildId == GuidId);
+                var NewPermisionRole = new ModerationRole { GuildID = GuidId, Server = guild, RoleId = RoleId };
                 NewPermisionRole.SetSection(permision, true);
                 _context.ModerationRoles.Add(NewPermisionRole);
             }
@@ -42,7 +44,9 @@ namespace Infrastructure
                 .FindAsync(GuidId, RoleId);
             if (Permisions == null)
             {
-                var NewPermisionRole = new ModerationRole { GuildID = GuidId, RoleId = RoleId };
+                var guild = await _context.Servers
+                   .FirstOrDefaultAsync(x => x.GuildId == GuidId);
+                var NewPermisionRole = new ModerationRole { GuildID = GuidId, Server = guild, RoleId = RoleId };
                 NewPermisionRole.SetSection(permision, false);
                 _context.ModerationRoles.Add(NewPermisionRole);
             }

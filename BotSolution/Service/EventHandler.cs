@@ -48,7 +48,7 @@ namespace BotSolution.Bot.Service
 
         private async Task OnUserLeft(SocketGuildUser user)
         {
-            GuidMessages.SendMessage(user, TypeOfMessage.Left);
+            await GuidMessages.SendMessage(user, TypeOfMessage.Left);
         }
 
         private async Task OnUserBanned(SocketUser user, SocketGuild guild)

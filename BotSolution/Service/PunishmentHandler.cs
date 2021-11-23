@@ -68,7 +68,7 @@ namespace BotSolution.Service
                             break;
 
                     }
-                    await _punishment.FinishPunishmenst(panish.id);
+                    await _punishment.FinishPunishmenst(panish.Id);
 
                 }
             }

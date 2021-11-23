@@ -22,7 +22,9 @@ namespace BotSolution.Services
         private readonly IConfiguration configuration;
         private readonly Servers servers;
 
-        public CommandHandler(IServiceProvider provider, DiscordSocketClient client, CommandService service, IConfiguration configuration, Servers servers)
+        public CommandHandler(IServiceProvider provider, 
+            DiscordSocketClient client, CommandService service, 
+            IConfiguration configuration, Servers servers)
         {
             this.provider = provider;
             this.client = client;

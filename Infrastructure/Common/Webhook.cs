@@ -14,10 +14,11 @@ namespace Infrastructure.Bot
             _context = context;
         }
 
-        public void AddWebhook(ulong GuidId, string WebhookToken, ulong WebhookId, string name)
+        public async Task AddWebhookAsync(ulong GuidId, string WebhookToken, ulong WebhookId, string name)
         {
-            _context.Webhooks.Add(new Webhooks { IdServer = GuidId, name = name, Token = WebhookToken, id = WebhookId });
-            _context.SaveChangesAsync();
+            var guild = await _context.Servers.FirstOrDefaultAsync(x => x.GuildId == GuidId);
+            _context.Webhooks.Add(new Webhooks { Server = guild,IdServer = GuidId , Name = name, Token = WebhookToken, Id = WebhookId });
+            await _context.SaveChangesAsync();
         }
 
 
@@ -40,7 +41,7 @@ namespace Infrastructure.Bot
         {
             var result = await _context.Webhooks
                 .Where(x => x.IdServer == GuidId)
-                .Where(x => x.name == name).FirstOrDefaultAsync();
+                .Where(x => x.Name == name).FirstOrDefaultAsync();
             return await Task.FromResult(result);
         }
     }

@@ -31,15 +31,15 @@ namespace Webpage.Controllers
             if (mail == null || password == null)
                 return View("Login");
             ViewData["ReturnUrl"] = returnUrl ?? TempData["ReturnUrl"];
-            var user = await _context.users.FirstOrDefaultAsync(x => x.mail == mail);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Mail == mail);
             if (user != null)
                 if (BCrypt.Net.BCrypt.Verify(password, user.HashedPassord))
                 {
                     var claims = new List<Claim>();
-                    claims.Add(new Claim("username", user.name));
-                    claims.Add(new Claim(ClaimTypes.NameIdentifier, user.name));
-                    claims.Add(new Claim(ClaimTypes.Name, user.name));
-                    claims.Add(new Claim("id", Convert.ToString( user.id)));
+                    claims.Add(new Claim("username", user.Name));
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Name));
+                    claims.Add(new Claim(ClaimTypes.Name, user.Name));
+                    claims.Add(new Claim("id", Convert.ToString( user.Id)));
                     if(!RememberMe)
                         claims.Add(new Claim(ClaimTypes.Expiration, DateTime.Now.AddHours(12).ToString() ));
                     var claimsIdebtity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -67,7 +67,7 @@ namespace Webpage.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> NewUserAsync(string Nick, string Email, string Password, string ConfirmPassword, DateTime BrightDay, bool Rule, bool Pricacy, string returnUrl)
         {
-            var user = await _context.users.FirstOrDefaultAsync(x => x.mail == Email);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Mail == Email);
             bool validate = true;
             if (user != null)
             {
@@ -105,8 +105,8 @@ namespace Webpage.Controllers
             bool adult = false;
             if (DateTime.Today.AddYears(-18)<= BrightDay)
                 adult = true;
-            user = new User { name = Nick, mail = Email, HashedPassord = BCrypt.Net.BCrypt.HashPassword(Password), BrightDate = BrightDay, adult = adult };
-            await _context.users.AddAsync(user);
+            user = new User { Name = Nick, Mail = Email, HashedPassord = BCrypt.Net.BCrypt.HashPassword(Password), BrightDate = BrightDay, Adult = adult };
+            await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             if (returnUrl != null)
             {

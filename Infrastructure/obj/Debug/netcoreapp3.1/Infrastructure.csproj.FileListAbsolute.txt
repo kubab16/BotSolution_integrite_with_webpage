@@ -28,3 +28,4 @@ C:\Users\User-Standard\Desktop\BotSolution_integrite_with_webpage\Infrastructure
 C:\Users\User-Standard\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.dll
 C:\Users\User-Standard\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.pdb
 C:\Users\User-Standard\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.genruntimeconfig.cache
+C:\Users\User-Standard\Desktop\BotSolution_integrite_with_webpage\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig

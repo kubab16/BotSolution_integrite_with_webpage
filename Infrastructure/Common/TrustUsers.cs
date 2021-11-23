@@ -69,7 +69,7 @@ namespace Infrastructure.Common
             {
                 user.MessageCount++;
                 await _context.SaveChangesAsync();
-                return await Task.FromResult(true);
+                return true;
             }
         }
         
@@ -88,6 +88,69 @@ namespace Infrastructure.Common
                 return await Task.FromResult(true);
             }
         }
+        public async Task<bool> AddOddMessaageToCount(ulong guildId, ulong userId)
+        {
+            var user = await _context.TrustUsers
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.GuildId == guildId);
+            if (user == null)
+            {
+                return await Task.FromResult(false);
+            }
+            else
+            {
+                user.OddMessageCount++;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+        }
+        
+        public async Task<bool> AddOddMessaageToCount(ulong guildId, ulong userId, ulong cout)
+        {
+            var user = await _context.TrustUsers
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.GuildId == guildId);
+            if (user == null)
+            {
+                return await Task.FromResult(false);
+            }
+            else
+            {
+                user.OddMessageCount += cout;
+                await _context.SaveChangesAsync();
+                return await Task.FromResult(true);
+            }
+        }
+        
+        public async Task<bool> AddReactionToCount(ulong guildId, ulong userId)
+        {
+            var user = await _context.TrustUsers
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.GuildId == guildId);
+            if (user == null)
+            {
+                return await Task.FromResult(false);
+            }
+            else
+            {
+                user.ReactionCount++;
+                await _context.SaveChangesAsync();
+                return await Task.FromResult(true);
+            }
+        }
+        
+        public async Task<bool> AddReactionToCount(ulong guildId, ulong userId, ulong cout)
+        {
+            var user = await _context.TrustUsers
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.GuildId == guildId);
+            if (user == null)
+            {
+                return await Task.FromResult(false);
+            }
+            else
+            {
+                user.ReactionCount += cout;
+                await _context.SaveChangesAsync();
+                return await Task.FromResult(true);
+            }
+        }
 
         public async Task<ulong> GetUserTrustValue(ulong guildId, ulong userId, ulong changeValue)
         {
@@ -102,7 +165,7 @@ namespace Infrastructure.Common
                 var userPunish = await _context.Punishment
                     .Where(x => x.GuidId == guildId && x.UserId == userId)
                     .ToListAsync();
-                ulong value = user.MessageCount / 125 + user.TrustValue + changeValue;
+                ulong value = user.MessageCount / 125 + user.TrustValue + changeValue - user.OddMessageCount;
                 if (userPunish != null)
                 {
                     value = value - (ulong) (userPunish.Count / 5) + 2;
@@ -110,5 +173,11 @@ namespace Infrastructure.Common
                 return value;
             }
         }
+
+        public async Task<TrustUser> GetTrustUser(ulong guild, ulong user)
+        {
+            return await _context.TrustUsers.FirstOrDefaultAsync(x => x.GuildId == guild && x.UserId == user);
+        }
+        
     }
 }

@@ -1,33 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using Infrastructure.Common;
 
 namespace Infrastructure
 {
     /// <summary>
     /// Bot DataBase conection
     /// </summary>
-    public class Context :  DbContext 
+    public class Context : DbContext
     {
-
-        public DbSet<Server> Servers { get; set; }
         public DbSet<Comands> Comands { get; set; }
-        public DbSet<Webhooks> Webhooks { get; set; }
-        public DbSet<Punishment> Punishment { get; set; }
-        public DbSet<ModerationRole> ModerationRoles { get; set; }
+        public DbSet<ConectionSeries> ConectionSeries { get; set; }
+        public DbSet<Episode> Episodes { get; set; }
+        public DbSet<EpisodeComments> EpisodeComments { get; set; }
         public DbSet<Language> Language { get; set; }
-        public DbSet<SeriesRating> Rating { get; set; }
-        public DbSet<Series> series { get; set; }
-        public DbSet<player> players { get; set; }
-        public DbSet<Episode> episodes { get; set; }
-        public DbSet<EPisodeComments> Ecomments { get; set; }
-        public DbSet<SeriesComments> Scomments { get; set; }
-        public DbSet<User> users { get; set; }
-        public DbSet<WathedEpisode> wathedSeries { get; set; }
-
+        public DbSet<ModerationRole> ModerationRoles { get; set; }
+        public DbSet<PermisionGlobal> PermisionGlobals { get; set; }
+        public DbSet<Player> Players { get; set; }
+        public DbSet<Punishment> Punishment { get; set; }
+        public DbSet<Series> Series { get; set; }
+        public DbSet<SeriesComments> SeriesComments { get; set; }
+        public DbSet<SeriesTag> SeriesTags { get; set; }
+        public DbSet<Server> Servers { get; set; }
+        public DbSet<Tags> Tags { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<WathedEpisode> WathedEpisode { get; set; }
+        public DbSet<Webhooks> Webhooks { get; set; }
+        public DbSet<TrustUser> TrustUsers { get; set; }
+        public DbSet<BadWord> BadWords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -65,21 +70,26 @@ namespace Infrastructure
         public string Goodbye { get; set; }
         public string Banned { get; set; }
         public byte[] Background { get; set; }
-        public Language Langue { get; set; }
         [DefaultValue(null)]
         public ulong Vmute { get; set; }
         [DefaultValue(null)]
         public ulong Tmute { get; set; }
         [DefaultValue(null)]
         public ulong AutoRoleId { get; set; }
+
+        public Language Langue { get; set; }
+        public Comands Comands { get; set; }
+        public List<Webhooks> Webhooks { get; set; }
+        public List<Punishment> Punishments { get; set; }
+        public List<ModerationRole> ModerationRoles { get; set; }
     }
     /// <summary>
     /// Langue list!
     /// </summary>
     public class Language
     {
-        public int id { get; set; }
-        public string name { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string File { get; set; }
     }
     /// <summary>
@@ -97,8 +107,6 @@ namespace Infrastructure
         [DefaultValue(true)]
         public bool Funny { get; set; }
     }
-
-
     /// <summary>
     /// List of all bot webhooks
     ///  id - Id webhook
@@ -108,26 +116,31 @@ namespace Infrastructure
     /// </summary>
     public class Webhooks
     {
-        public ulong id { get; set; }
-        public ulong IdServer { get; set; }
-        public string name { get; set; }
+        public ulong Id { get; set; }
+        public string Name { get; set; }
         public string Token { get; set; }
+        public ulong ChannelId { get; set; }
+
+        public ulong IdServer { get; set; }
+        public Server Server { get; set; }
     }
     public class Punishment
     {
-        public int id { get; set; }
-        public ulong GuidId { get; set; }
+        public int Id { get; set; }
         public ulong UserId { get; set; }
         public string TypeOfPunishment { get; set; }
         public DateTime? EndDate { get; set; }
         public string Reason { get; set; }
         public ulong ModeratorId { get; set; }
         public bool Finished { get; set; }
+
+        public ulong GuidId { get; set; }
+        public Server Server { get; set; }
     }
     public class ModerationRole
     {
         [Key]
-        public ulong GuildID { get; set; }
+        public ulong ModerationRoleId { get; set; }
         public ulong RoleId { set; get; }
 
         [DefaultValue(false)] // Moderation
@@ -146,11 +159,11 @@ namespace Infrastructure
         [DefaultValue(false)]
         public bool Information { get; set; }
         [DefaultValue(true)]
-        public bool ping { get; set; }
+        public bool Ping { get; set; }
         [DefaultValue(false)]
-        public bool user { get; set; }
+        public bool User { get; set; }
         [DefaultValue(false)]
-        public bool server { get; set; }
+        public bool ServerCmd { get; set; }
         [DefaultValue(false)]
         public bool Avatar { get; set; }
 
@@ -160,45 +173,48 @@ namespace Infrastructure
         [DefaultValue(false)]
         public bool Configuration { get; set; }
 
+        public ulong GuildID { get; set; }
+        public Server Server { get; set; }
+
         public void SetSection(string section, bool value)
         {
             switch (section)
             {
                 case "Modration":
-                    this.Modration = value;
+                    Modration = value;
                     break;
                 case "Vmute":
-                    this.Vmute = value;
+                    Vmute = value;
                     break;
                 case "Tmute":
-                    this.Tmute = value;
+                    Tmute = value;
                     break;
                 case "Ban":
-                    this.Ban = value;
+                    Ban = value;
                     break;
                 case "Warn":
-                    this.Warn = value;
+                    Warn = value;
                     break;
                 case "Kick":
-                    this.Kick = value;
+                    Kick = value;
                     break;
                 case "Information":
-                    this.Information = value;
+                    Information = value;
                     break;
                 case "ping":
-                    this.ping = value;
+                    Ping = value;
                     break;
                 case "user":
-                    this.user = value;
+                    User = value;
                     break;
                 case "server":
-                    this.server = value;
+                    ServerCmd = value;
                     break;
                 case "Avatar":
-                    this.Avatar = value;
+                    Avatar = value;
                     break;
                 case "Funny":
-                    this.Funny = value;
+                    Funny = value;
                     break;
             }
         }
@@ -207,92 +223,145 @@ namespace Infrastructure
     {
         [Key]
         [DisplayName("Series ID")]
-        public ulong id { get; set; }
+        public ulong SeriesId { get; set; }
         [DisplayName("Series image")]
-        public byte[] image { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string tags { get; set; }
+        public byte[] Image { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime? Start { get; set; }
+        public DateTime? End { get; set; }
+        public double EpisodeLenght { get; set; }
+
+        public List<SeriesRating> SeriesRatings { get; set; }
+        public List<SeriesTag> Tags { get; set; }
+        public List<SeriesComments> SeriesComments { get; set; }
+        public List<Episode> Episodes { get; set; }
+    }
+
+    public class TrustUser
+    {
+        [Key]
+        public ulong Id { get; set; }
+        public ulong UserId { get; set; }
+        public ulong GuildId { get; set; }
+        public ulong TrustValue { get; set; }
+        [DefaultValue(0)]
+        public ulong MessageCount { get; set; }
+        [DefaultValue(0)]
+        public ulong OddMessageCount { get; set; }
+        [DefaultValue(0)]
+        public ulong ReactionCount { get; set; }
     }
     public class SeriesRating
     {
         [Key]
-        public ulong id { get; set; }
-        [DisplayName("Series' ID")]
-        public ulong seriesId { get; set; }
+        public ulong Id { get; set; }
         [DisplayName("User's ID")]
-        public ulong userId { get; set; }
+        public ulong UserId { get; set; }
         public double Raiting { get; set; }
         public double Graphics { get; set; }
         public double Story { get; set; }
         public double Characters { get; set; }
         public double Music { get; set; }
+
+        [DisplayName("Series' ID")]
+        public ulong SeriesId { get; set; }
+        public Series Series { get; set; }
     }
-    public class player
+    public class SeriesTag
     {
         [Key]
-        public ulong id { get; set; }
+        public uint Id { get; set; }
+
+        public Tags Tag { get; set; }
+        public string TagId { get; set; }
+
+        public int SeriesId { get; set; }
+        public Series Series { get; set; }
+    }
+    public class Tags
+    {
+        [Key]
+        public string TagId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+    public class Player
+    {
+        [Key]
+        public ulong Id { get; set; }
+        public string Name { get; set; }
+        public string Link { get; set; }
+
         [DisplayName("Episode ID")]
         public ulong EpisodeID { get; set; }
-        [DisplayName("User's name")]
+        public Episode Episodes { get; set; }
+
+        [DisplayName("User ID")]
         public ulong UserId { get; set; }
-        public string name { get; set; }
-        public string link { get; set; }
+        public User User { get; set; }
     }
     public class Episode
     {
         [Key]
         [DisplayName("Episode ID")]
-        public ulong id { get; set; }
+        public ulong Id { get; set; }
         public int Number { get; set; }
-        public string name { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime PublishDate { get; set; }
+
+        [DisplayName("Series' ID")]
         public ulong SeriesId { get; set; }
+        public Series Series { get; set; }
+
+        public List<Player> players { get; set; }
     }
     public class SeriesComments
     {
         [DisplayName("Coments ID")]
-        public ulong id { get; set; }
-        [DisplayName("User ID")]
-        public ulong userId { get; set; }
+        public ulong Id { get; set; }
         [DisplayName("Coments text")]
-        public string comment { get; set; }
-        [DisplayName("Like")]
-        public int positive { get; set; }
-        [DisplayName("Unlike")]
-        public int negative { get; set; }
+        public string Comment { get; set; }
+        [DisplayName("User ID")]
+        public ulong UserId { get; set; }
+        public User User { get; set; }
     }
-    public class EPisodeComments
+    public class EpisodeComments
     {
         [DisplayName("Coments ID")]
-        public ulong id { get; set; }
-        [DisplayName("User ID")]
-        public ulong userId { get; set; }
+        public ulong Id { get; set; }
         [DisplayName("Coments text")]
-        public string comment { get; set; }
+        public string Comment { get; set; }
         [DisplayName("Like")]
-        public int positive { get; set; }
+        public int Positive { get; set; }
         [DisplayName("Unlike")]
-        public int negative { get; set; }
+        public int Negative { get; set; }
+
+        [DisplayName("User ID")]
+        public ulong UserId { get; set; }
+        public User User { get; set; }
     }
-    public class User 
+    public class User
     {
         [DisplayName("User ID")]
-        public ulong id { get; set; }      
-        [DisplayName("User's accout discord ID")]
+        public ulong Id { get; set; }
+        [DisplayName("User's account discord ID")]
         public ulong DiscordAccountId { get; set; }
-        [DisplayName("User's avatara")]
-        public byte[] avatar { get; set; }
-        [DisplayName("User's hashed passwoed")]
-        public string HashedPassord { get; set; }       
-        public string mail { get; set; }
-        public string name { get; set; }
+        [DisplayName("User's avatar")]
+        public byte[] Avatar { get; set; }
+        [DisplayName("User's hashed password")]
+        public string HashedPassord { get; set; }
+        public string Mail { get; set; }
+        public string Name { get; set; }
         public DateTime BrightDate { get; set; }
-        public bool adult { get; set; }
+        public bool Adult { get; set; }
         [DefaultValue(null)]
         public ulong Group { get; set; }
-        public permisionGlobal permision { get; set; }
+
+        public PermisionGlobal Permision { get; set; }
     }
-    public class permisionGlobal
+    public class PermisionGlobal
     {
         [Key]
         public ulong PermisionGlobalId { get; set; }
@@ -308,15 +377,19 @@ namespace Infrastructure
     public class WathedEpisode
     {
         [DisplayName("Wath episode Id")]
-        public int id { get; set; }
+        public int Id { get; set; }
+
         [DisplayName("User iD")]
-        public int UserId { get; set; }
+        public ulong UserId { get; set; }
+        public User User { get; set; }
+
         [DisplayName("Series Id")]
-        public int SeriesId { get; set; }
+
+        public Series Series { get; set; }
     }
-    public class conectionSeries
+    public class ConectionSeries
     {
-        public ulong id { get; set; }
+        public ulong Id { get; set; }
         [DisplayName("First series connection name")]
         public string TypeConnecionFirst { get; set; }
         [DisplayName("First series ID")]
@@ -325,5 +398,12 @@ namespace Infrastructure
         public string TypeConnecionSecond { get; set; }
         [DisplayName("Second series ID")]
         public ulong SecondSeries { get; set; }
+    }
+
+    public class BadWord
+    {
+        [Key]
+        public ulong Id { get; set; }
+        public string BadIssue { get; set; }
     }
 }

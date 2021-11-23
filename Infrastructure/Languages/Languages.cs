@@ -59,11 +59,11 @@ namespace Infrastructure.Languages
                 var server = await _context.Servers.FindAsync(id);
                 if (server != null)
                 {
-                    server.Langue = new Language {name = langue, File = FileName };
+                    server.Langue = new Language {Name = langue, File = FileName };
                 }
                 else
                 {
-                    _context.Servers.Add(new Server { GuildId = id, Langue = new Language { name = langue, File = FileName } });
+                    _context.Servers.Add(new Server { GuildId = id, Langue = new Language { Name = langue, File = FileName } });
                 }
                 await _context.SaveChangesAsync();
                 return await Task.FromResult(true);

@@ -15,6 +15,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using BotSolution.Guard;
+using Infrastructure.Common;
 
 namespace BotSolution.Bot
 {
@@ -66,6 +68,7 @@ namespace BotSolution.Bot
                         .AddHostedService<CommandHandler>()
                         .AddHostedService<EventsHandler>()
                         .AddHostedService<PunishmentHandler>()
+                        .AddHostedService<MainGuard>()
                         .AddDbContext<Context>()
                         .AddSingleton<Servers>()
                         .AddSingleton<AutoRoles>()
@@ -74,7 +77,9 @@ namespace BotSolution.Bot
                         .AddSingleton<Punishments>()
                         .AddSingleton<ModerationRoles>()
                         .AddSingleton<PunishmentRole>()
-                        .AddSingleton<Languages>();
+                        .AddSingleton<Languages>()
+                        .AddSingleton<TrustUsers>()
+                        .AddSingleton<BadWords>();
                 })
                 .UseConsoleLifetime();
 

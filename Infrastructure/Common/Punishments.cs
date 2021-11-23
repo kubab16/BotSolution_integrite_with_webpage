@@ -57,16 +57,16 @@ namespace Infrastructure
         }
         public async Task AddPunishmentUser(ulong GuidId, ulong UserId, String Type,DateTime? EndDate, ulong ModeratorId, String Reason = null)
         {
-
-            _context.Punishment.Add(new Punishment { GuidId = GuidId, UserId = UserId,
+            var guild = await _context.Servers.FirstOrDefaultAsync(x => x.GuildId == GuidId);
+            _context.Punishment.Add(new Punishment { GuidId = GuidId, Server = guild, UserId = UserId,
                 TypeOfPunishment = Type, EndDate = EndDate,
                 Reason = Reason, ModeratorId = ModeratorId });
             await _context.SaveChangesAsync();
         }
         public async Task AddPunishmentUser(ulong GuidId, ulong UserId, String Type, ulong ModeratorId, String Reason = null)
         {
-
-            _context.Punishment.Add(new Punishment { GuidId = GuidId, UserId = UserId,
+            var guild = await _context.Servers.FirstOrDefaultAsync(x => x.GuildId == GuidId);
+            _context.Punishment.Add(new Punishment { GuidId = GuidId, Server = guild, UserId = UserId,
                 TypeOfPunishment = Type,
                 Reason = Reason, ModeratorId = ModeratorId });
             await _context.SaveChangesAsync();

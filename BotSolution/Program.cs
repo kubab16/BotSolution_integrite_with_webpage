@@ -8,7 +8,7 @@ namespace BotSolution
     {
         static async Task Main(string[] args)
         {
-            await RunBot.start();
+            //await RunBot.start();
         }
     }
 }

@@ -5,11 +5,11 @@
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" >Hello @User.Identity.Name!</a>
+            <a class="nav-link text-light" >Hello @User.Identity.Name!</a>
         </li>
         <li class="nav-item" >
             <form class="form-inline" asp-controller="Identify" asp-action="logout" asp-route-returnUrl ="@returnUrl">
-                <button type="submit" class="nav-link btn btn-link text-dark">Wyloguj</button>
+                <button type="submit" class="nav-link btn btn-link text-light">Wyloguj</button>
             </form>
         </li>
     }

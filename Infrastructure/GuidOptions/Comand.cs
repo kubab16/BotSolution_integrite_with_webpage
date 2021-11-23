@@ -35,7 +35,8 @@ namespace Infrastructure
                 .FindAsync(id);
             if (Comand == null)
             {
-                _context.Add(new Comands { Id = id, Miusic = true, Moderation = true, Funny = true, Information = true });
+                var guild = await _context.Servers.FirstOrDefaultAsync(x => x.GuildId == id);
+                _context.Add(new Comands {Miusic = true, Moderation = true, Funny = true, Information = true });
                 await _context.SaveChangesAsync();
                 Comand = await _context.Comands
                     .FindAsync(id);
@@ -69,7 +70,8 @@ namespace Infrastructure
                 .FindAsync(id);
             if (Comand == null)
             {
-                _context.Add(new Comands { Id = id, Miusic = true, Moderation = true, Funny = true, Information = true });
+                var guild = await _context.Servers.FirstOrDefaultAsync(x => x.GuildId == id);
+                _context.Add(new Comands { Miusic = true, Moderation = true, Funny = true, Information = true });
                 await _context.SaveChangesAsync();
                 Comand = await _context.Comands
                     .FindAsync(id);
@@ -103,7 +105,8 @@ namespace Infrastructure
                 .FindAsync(id);
             if (Comands == null)
             {
-                _context.Add(new Comands { Id = id, Miusic = true, Moderation = true, Funny = true, Information = true });
+                var guild = await _context.Servers.FirstOrDefaultAsync(x => x.GuildId == id);
+                _context.Add(new Comands {Miusic = true, Moderation = true, Funny = true, Information = true });
                 await _context.SaveChangesAsync();
                 Comands = await _context.Comands
                     .FindAsync(id);

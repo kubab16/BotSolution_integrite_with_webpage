@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Webpage.Models;
 
@@ -24,8 +23,8 @@ namespace Webpage.Controllers
         [HttpGet("avatar")]
         public async Task<ActionResult> UserAvatarAsync(ulong id)
         {
-            var item = await _context.users.FirstOrDefaultAsync(x => x.id == id);
-            byte[] buffer = item.avatar;
+            var item = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            byte[] buffer = item.Avatar;
             return File(buffer, "image/jpg", string.Format("{0}.jpg", id));
         }
 
@@ -33,8 +32,8 @@ namespace Webpage.Controllers
         [HttpGet("SeriesImage")]
         public async Task<ActionResult> SeriesImageAsync(ulong id)
         {
-            var item = await _context.users.FirstOrDefaultAsync(x => x.id == id);
-            byte[] buffer = item.avatar;
+            var item = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            byte[] buffer = item.Avatar;
             return File(buffer, "image/jpg", string.Format("{0}.jpg", id));
         }
 
@@ -47,9 +46,7 @@ namespace Webpage.Controllers
                 {
                     //Getting FileName
                     var fileName = Path.GetFileName(files.FileName);
-                    //Getting file Extension
                     var fileExtension = Path.GetExtension(fileName);
-                    // concatenating  FileName + FileExtension
                     var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
 
                     var objfiles = new Files()
@@ -66,7 +63,7 @@ namespace Webpage.Controllers
                         objfiles.DataFiles = target.ToArray();
                     }
 
-                    var item = await _context.users.FirstOrDefaultAsync(x => x.id == userId);
+                    var item = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
                     _context.SaveChanges();
                     
                 }
