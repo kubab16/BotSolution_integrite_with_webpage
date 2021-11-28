@@ -17,7 +17,7 @@ namespace BotSolution.Guard
             {
                 trustValue += 3;
             }
-
+            
             if (time >= 30)
             {
                 trustValue += 5;

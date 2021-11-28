@@ -75,7 +75,7 @@ namespace BotSolution.Guard
 
         private Task OnReactionAddPointer(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
         {
-            
+            _trustUser.AddReactionToCount((arg3.User as SocketGuildUser).Id,arg3.UserId);
         }
         private async Task<bool> CheckMessage(SocketMessage message)
         {
