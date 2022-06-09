@@ -2,6 +2,7 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using Infrastructure;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace BotSolution.Service
 {
     [Obsolete]
-    public class PunishmentHandler : InitializedService
+    public class PunishmentHandler : DiscordClientService
     {
         private readonly IServiceProvider _provider;
         private readonly DiscordSocketClient _client;
@@ -19,7 +20,7 @@ namespace BotSolution.Service
         private readonly PunishmentRole _punishmentRole;
         private readonly CommandService _service;
 
-        public PunishmentHandler(IServiceProvider provider, DiscordSocketClient client, Punishments punishments, PunishmentRole punishmentRole, CommandService service)
+        public PunishmentHandler(IServiceProvider provider, DiscordSocketClient client, Punishments punishments, PunishmentRole punishmentRole, CommandService service, ILogger<PunishmentHandler> logger) : base(client, logger)
         {
             _provider = provider;
             _client = client;
@@ -28,7 +29,7 @@ namespace BotSolution.Service
             _service = service;
         }
 
-        public override async Task InitializeAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             var NewTask = new Task(async () => await StartMuteHandler());
             NewTask.Start();

@@ -5,15 +5,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Addons.Hosting;
+using Discord.Addons.Hosting.Util;
 using Discord.Commands;
 using Discord.WebSocket;
 using Infrastructure;
 using Infrastructure.Common;
+using Microsoft.Extensions.Logging;
 
 namespace BotSolution.Guard
 {
     [Obsolete]
-    public class MainGuard : InitializedService
+    public class MainGuard : DiscordClientService
     {
         private readonly Servers _servers;
         private readonly TrustUsers _trustUser;
@@ -22,19 +24,20 @@ namespace BotSolution.Guard
         private readonly DiscordSocketClient _client;
         private readonly BadWords _badWords;
         private readonly PunishmentRole _punishmentRole;
-        
-        public override async Task InitializeAsync(CancellationToken cancellationToken)
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Client.WaitForReadyAsync(stoppingToken);
             _client.MessageReceived += OnMessageDetector;
             _client.UserJoined += OnNewUserJoin;
             _client.ReactionAdded += OnReactionAddPointer;
             await _service.AddModulesAsync(Assembly.GetEntryAssembly(), _provider);
         }
-        
+
         public MainGuard(Servers servers,
             TrustUsers trustUser, CommandService service,
             IServiceProvider provider, DiscordSocketClient client,
-            BadWords badWords, PunishmentRole punishmentRole)
+            BadWords badWords, PunishmentRole punishmentRole, ILogger<MainGuard> logger) : base(client, logger)
         {
             _servers = servers;
             _trustUser = trustUser;
@@ -72,13 +75,12 @@ namespace BotSolution.Guard
                                 (await UserTrustCalculator.UserAvatarTrustInt(user));
             await _trustUser.NewUser(user.Guild.Id, user.Id, trustValue);
         }
-
-        private async Task OnReactionAddPointer(Cacheable<IUserMessage, ulong> Message, ISocketMessageChannel channel, SocketReaction reaction)
+        private async Task OnReactionAddPointer(Cacheable<IUserMessage, ulong> Message, Cacheable<IMessageChannel, ulong> chanel, SocketReaction reaction)
         {
             var idGuild = (reaction.Channel as SocketGuildChannel).Guild.Id;
             var idUser = reaction.User.Value.Id;
 
-            await _trustUser.AddReactionToCount(idGuild, idUser);
+            var x = await _trustUser.AddReactionToCount(idGuild, idUser);
         }
         private async Task<bool> CheckMessage(SocketMessage message)
         {

@@ -4,6 +4,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Infrastructure;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 namespace BotSolution.Services
 {
     [Obsolete]
-    public class CommandHandler : InitializedService
+    public class CommandHandler : DiscordClientService
     {
         private readonly IServiceProvider provider;
         private readonly DiscordSocketClient client;
@@ -24,7 +25,7 @@ namespace BotSolution.Services
 
         public CommandHandler(IServiceProvider provider, 
             DiscordSocketClient client, CommandService service, 
-            IConfiguration configuration, Servers servers)
+            IConfiguration configuration, Servers servers, ILogger<CommandHandler> logger) : base(client, logger)
         {
             this.provider = provider;
             this.client = client;
@@ -33,7 +34,7 @@ namespace BotSolution.Services
             this.servers = servers;
         }
 
-        public override async Task InitializeAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             this.client.MessageReceived += OnMessageReceived;
             this.service.CommandExecuted += OnCommandExecuted;
