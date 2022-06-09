@@ -1,0 +1,25 @@
+﻿@{ 
+    var returnUrl = ViewData["ReturnUrl"] ?? Context.Request.Path;
+}
+<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" >Hello @User.Identity.Name!</a>
+        </li>
+        <li class="nav-item" >
+            <form class="form-inline" asp-controller="Identify" asp-action="logout" asp-route-returnUrl ="@returnUrl">
+                <button type="submit" class="nav-link btn btn-link text-light">Wyloguj</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-controller="Identify" asp-action="Register" asp-route-returnUrl ="@returnUrl">Rejestracja</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-controller="Identify" asp-action="Login" asp-route-returnUrl ="@returnUrl">Logowanie</a>
+        </li>
+    }
+</ul>
