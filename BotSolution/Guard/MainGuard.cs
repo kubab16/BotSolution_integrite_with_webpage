@@ -47,7 +47,7 @@ namespace BotSolution.Guard
         /// <summary>
         /// Detect message. If message is odd 
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">Message to scan</param>
         /// <returns></returns>
         private async Task OnMessageDetector(SocketMessage message)
         {
@@ -73,9 +73,12 @@ namespace BotSolution.Guard
             await _trustUser.NewUser(user.Guild.Id, user.Id, trustValue);
         }
 
-        private Task OnReactionAddPointer(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
+        private async Task OnReactionAddPointer(Cacheable<IUserMessage, ulong> Message, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            _trustUser.AddReactionToCount((arg3.User as SocketGuildUser).Id,arg3.UserId);
+            var idGuild = (reaction.Channel as SocketGuildChannel).Guild.Id;
+            var idUser = reaction.User.Value.Id;
+
+            await _trustUser.AddReactionToCount(idGuild, idUser);
         }
         private async Task<bool> CheckMessage(SocketMessage message)
         {

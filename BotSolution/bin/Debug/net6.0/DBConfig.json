@@ -1,0 +1,8 @@
+{
+  "host": "localhost",
+  "port": "3336",
+  "database": "dotnetdb",
+  "user": "Net",
+  "password": "zaq1@WSX",
+  "Connect Timeout": "5"
+}

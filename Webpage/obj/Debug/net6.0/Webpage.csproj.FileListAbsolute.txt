@@ -1,0 +1,8 @@
+C:\Users\User-Kuba\Documents\BotSolution_integrite_with_webpage\Webpage\obj\Debug\net6.0\Webpage.csproj.AssemblyReference.cache
+C:\Users\User-Kuba\Documents\BotSolution_integrite_with_webpage\Webpage\obj\Debug\net6.0\Webpage.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User-Kuba\Documents\BotSolution_integrite_with_webpage\Webpage\obj\Debug\net6.0\Webpage.AssemblyInfoInputs.cache
+C:\Users\User-Kuba\Documents\BotSolution_integrite_with_webpage\Webpage\obj\Debug\net6.0\Webpage.AssemblyInfo.cs
+C:\Users\User-Kuba\Documents\BotSolution_integrite_with_webpage\Webpage\obj\Debug\net6.0\Webpage.csproj.CoreCompileInputs.cache
+C:\Users\User-Kuba\Documents\BotSolution_integrite_with_webpage\Webpage\obj\Debug\net6.0\Webpage.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User-Kuba\Documents\BotSolution_integrite_with_webpage\Webpage\obj\Debug\net6.0\Webpage.RazorAssemblyInfo.cache
+C:\Users\User-Kuba\Documents\BotSolution_integrite_with_webpage\Webpage\obj\Debug\net6.0\Webpage.RazorAssemblyInfo.cs
